@@ -23,11 +23,18 @@ chrome.downloads.onCreated.addListener(function (downloadItem){
 // This block is new!
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
-    if( request.message === "open_new_tab" ) {
-      chrome.tabs.create({"url": request.url});
+    if( request.message === "display_info" ) {
+      	chrome.processes.getProcessIdForTab(request.tabId, function (){
+      		
+      	});
     }
-    if( request.message === "download_created" ) {
+    if( request.message === "download_cancelled" ) {
 	 	chrome.downloads.cancel(request.downloadId, function (){
+
+	 	});
+	}
+    if( request.message === "download_resumed" ) {
+	 	chrome.downloads.resume(request.downloadId, function (){
 
 	 	});
 	}
